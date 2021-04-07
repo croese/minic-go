@@ -8,7 +8,44 @@ import (
 )
 
 func TestNextToken(t *testing.T) {
-	input := `=(){};,+-*/%<>![]`
+	input := `int foo = 10;
+float bar = 5.45773;
+bool baz = true;
+bool not_baz = false;
+
+float fun(int a, int b) {
+  int nums[] = new int[5];
+
+  if (a > b) {
+    nums[0] = a - b;
+  } else if (a >= b) {
+    nums[1] = a + b;
+  } else if (a <= b) {
+    nums[2] = a * b;
+  } else if (a == b) {
+    nums[3] = a % b;
+  } else if (a != b) {
+    nums[4] = a / b;
+  }
+
+  int i = 0;
+  while (i < nums.size) {
+    if (i == 1 || i == 3) {
+      iprint(i);
+    }
+		
+    if (i > 0 && i <= 2) {
+      iprint(i);
+    }
+
+    i = i + 1;
+  }
+
+  return bar;
+}
+
+fun(foo, foo + 5);
+`
 
 	tests := []struct {
 		expectedType    token.TokenType
